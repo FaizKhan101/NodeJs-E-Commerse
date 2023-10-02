@@ -1,12 +1,12 @@
-<%- include("includes/head", { pageTitle: pageTitle }) %>
+<%- include("../includes/head", { pageTitle: pageTitle }) %>
     <link rel="stylesheet" href="/css/product.css" />
   </head>
 
   <body>
-    <%- include("includes/navigation") %>
+    <%- include("../includes/navigation") %>
 
     <main>
-      <h1>All Products</h1>
+      <h1>Admin Products</h1>
       <% if (prods.length <= 0) { %>
           <p>Could not found any product yet!</p>
       <% } else { %>
@@ -37,4 +37,4 @@
         </div>
       <% } %>
     </main>
-<%- include("includes/end") %>
+<%- include("../includes/end") %>
