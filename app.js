@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 
 const errorController = require("./controllers/error");
 const sequelize = require("./util/database");
+const User = require("./models/user")
+const Prpduct = require("./models/product")
 
 const app = express();
 
@@ -13,6 +15,7 @@ app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const Product = require("./models/product");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -22,7 +25,11 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+Product.belongsTo(User, { constraints: true, onDelete: 'CASCADE' })
+User.hasMany(Product)
+
 sequelize
+//   .sync({force: true})
   .sync()
   .then((result) => {
     app.listen(3000, () => console.log("Server start at port 3000!"));
