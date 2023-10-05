@@ -75,7 +75,7 @@ exports.postCart = (req, res, next) => {
       if (product) {
         const oldQuantity = product.cartItem.quantity;
         newQuantity = oldQuantity + 1;
-        return product
+        return product;
       }
       return Product.findByPk(prodId);
     })
@@ -96,19 +96,40 @@ exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   req.user
     .getCart()
-    .then(cart => {
-      return cart.getProducts({ where: { id: prodId } })
+    .then((cart) => {
+      return cart.getProducts({ where: { id: prodId } });
     })
-    .then(products => {
-      const product = products[0]
-      return product.cartItem.destroy()
+    .then((products) => {
+      const product = products[0];
+      return product.cartItem.destroy();
     })
-    .then(result => {
+    .then((result) => {
       res.redirect("/cart");
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
+    });
+};
+
+exports.postOrder = (req, res, next) => {
+  req.user
+    .getCart()
+    .then((cart) => {
+      return cart.getProducts();
     })
+    .then((products) => {
+      return req.user
+          .createOrder()
+          .then(order => {
+            order.addProducts(products.map(product => {
+              product.orderItem = { quantity: product.cartItem.quantity }
+              return product
+            }))
+          }).catch(err => console.log(err))
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.getOrders = (req, res, next) => {
