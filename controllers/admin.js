@@ -1,5 +1,3 @@
-const { ObjectId } = require("mongodb")
-
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
@@ -55,7 +53,7 @@ exports.postEditProduct = (req, res, next) => {
     updatedImageUrl,
     updatedPrice,
     updatedDesc,
-    new ObjectId(prodId)
+    prodId
   );
   product.save().then((result) => {
     res.redirect("/admin/products");
