@@ -46,6 +46,14 @@ class Product {
       .collection("products")
       .findOne({ _id: new ObjectId(id) });
   }
+
+  static deleteById(id) {
+    if (!id){
+      throw new Error("Trying to delete product without id!")
+    }else {
+      return db.getDb().collection("products").deleteOne({ _id: new ObjectId(id) })
+    }
+  }
 }
 
 module.exports = Product;
