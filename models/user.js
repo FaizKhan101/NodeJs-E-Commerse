@@ -1,5 +1,4 @@
 const { ObjectId } = require("mongodb");
-const db = require("../util/database");
 
 class User {
   constructor(username, email, cart, id) {
