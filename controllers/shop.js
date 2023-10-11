@@ -29,7 +29,6 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  console.log("I am there");
   Product.findById(prodId)
     .then((product) => {
       // console.log(product);
@@ -144,7 +143,6 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
   req.user.getOrders({ include: ['products'] }).then(orders => {
-    console.log(orders);
     res.render("shop/orders", {
       path: "/orders",
       pageTitle: "Your Orders",
