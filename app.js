@@ -34,7 +34,7 @@ app.use(errorController.get404);
 
 
 mongoose.connect('mongodb+srv://Prince:faiz8225@cluster0.3iavjwf.mongodb.net/shop').then(result => {
-  app.listen(3000)
+  app.listen(3000, () => console.log("Connected!"))
 }).catch(err => {
   console.log(err);
 })
