@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
-  User.findById('6526e480e93399d2df2eb56c')
+  User.findById('6526e5ae992188a980a17588')
     .then((user) => {
       req.user = user;
       next();
