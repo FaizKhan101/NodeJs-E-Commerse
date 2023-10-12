@@ -18,7 +18,7 @@ exports.postAddProduct = (req, res, next) => {
     imageUrl: imageUrl,
     price: price,
     description: description,
-    userId: req.user
+    userId: req.user._id
   });
   product
     .save()
@@ -70,11 +70,11 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  // req.user
-  //   .getProducts()
-  // Product.findAll()
   Product.find()
+    // .select("title price -_id")
+    // .populate("userId", "name")
     .then((products) => {
+      console.log(products);
       res.render("admin/products", {
         prods: products,
         pageTitle: "Admin Products",
